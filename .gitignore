@@ -1,0 +1,32 @@
+# ===== 依赖 =====
+node_modules/
+cloudfunctions/*/node_modules/
+miniprogram_npm/
+
+# ===== 本机私有配置（含本地路径/个人设置，不入库） =====
+project.private.config.json
+
+# ===== 密钥与个人配置（绝对不入库） =====
+cloudfunctions/asr/config.js
+**/config.local.js
+.env
+.env.*
+*.pem
+*.key
+
+# ===== 微信开发者工具 / 编辑器临时文件 =====
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+
+# ===== 打包产物 =====
+*.zip
+dist/
+# 本地辅助脚本（不入库）
+1-打开GitBash.bat
+2-打开命令行CMD.bat
+3-Git命令清单.txt
+4-一键提交.bat

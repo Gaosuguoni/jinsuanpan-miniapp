@@ -1,0 +1,4 @@
+{
+  "_deprecated": "插件路线已放弃（同声传译插件对服务类目/主体有要求，加不上）。现采用 Plan B：小程序自带录音 wx.getRecorderManager + 云函数 asr（腾讯云一句话识别）。本文件不再需要，可手动删除。",
+  "_appJsonPlugins": "无需在 app.json 里声明任何 plugins"
+}

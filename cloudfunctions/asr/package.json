@@ -1,0 +1,10 @@
+{
+  "name": "asr",
+  "version": "1.0.0",
+  "description": "金算盘记账工具 语音识别云函数：录音文件 → 腾讯云一句话识别 → 文字（密钥只在服务端）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3",
+    "tencentcloud-sdk-nodejs": "^4.0.0"
+  }
+}

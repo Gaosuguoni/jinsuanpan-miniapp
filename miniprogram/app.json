@@ -1,0 +1,13 @@
+{
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "金算盘记账工具",
+    "navigationBarBackgroundColor": "#1f6f43",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f4f6f5"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

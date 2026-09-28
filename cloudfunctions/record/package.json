@@ -1,0 +1,9 @@
+{
+  "name": "record",
+  "version": "1.0.0",
+  "description": "商贩语音记账 P0：落库/查今日/删除（服务端重算校验金额）",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

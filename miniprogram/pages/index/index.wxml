@@ -1,0 +1,118 @@
+<view class="page">
+  <!-- 模式条 -->
+  <view class="modebar">
+    <text class="chip {{mode}}">{{mode === 'demo' ? '🧪 本地演示模式' : (mode === 'cloud' ? '☁ 云开发模式' : '… 连接中')}}</text>
+    <button wx:if="{{mode === 'demo' && cloudConfigured}}" class="mini-btn" size="mini" bindtap="switchCloud">连接云开发</button>
+    <text wx:if="{{mode === 'demo'}}" class="modetip">数据只存本机；连接云开发后才能用语音识别</text>
+  </view>
+
+  <!-- 云端连接失败提示 -->
+  <view wx:if="{{cloudError}}" class="errbar">
+    <view class="errbar-text">{{cloudError}}</view>
+    <button class="mini-btn" size="mini" bindtap="switchDemo">先用本地演示</button>
+  </view>
+
+  <!-- ① 语音入口 -->
+  <view class="card">
+    <view class="card-title">① 按住说话记账</view>
+
+    <view wx:if="{{!voiceAvailable}}" class="vbanner">
+      <view class="vbanner-title">语音暂不可用（不影响打字记账）</view>
+      <view class="vbanner-line">1. 在 config.js 填好 cloudEnv，并让页面显示「☁ 云开发模式」</view>
+      <view class="vbanner-line">2. 部署云函数 asr：右键 cloudfunctions/asr → 上传并部署（云端安装依赖）</view>
+      <view class="vbanner-line">3. 在云开发控制台给 asr 配腾讯云语音识别密钥（SecretId / SecretKey）</view>
+      <view class="vbanner-reason">{{voiceReason}}</view>
+    </view>
+
+    <view class="voicebtn {{recording ? 'recording' : ''}} {{recognizing ? 'busy' : ''}} {{voiceAvailable ? '' : 'disabled'}}"
+          catchtouchstart="onRecordStart" catchtouchend="onRecordEnd" catchtouchcancel="onRecordEnd">
+      <view class="voicebtn-main">{{recording ? '松开 结束' : (recognizing ? '识别中…' : '按住 说话')}}</view>
+      <view class="voicebtn-sub">{{recording ? '正在听…' : (recognizing ? '正在转成文字…' : '例如：进苹果 50 斤 3.2 一斤')}}</view>
+    </view>
+
+    <view wx:if="{{voiceError}}" class="err">{{voiceError}}</view>
+  </view>
+
+  <!-- ② 打字备用 -->
+  <view class="card">
+    <view class="card-title">② 打字输入（备用）</view>
+    <textarea class="input" value="{{input}}" bindinput="onInput" auto-height maxlength="100"
+      placeholder="例如：进苹果 50 斤 3.2 一斤" />
+    <view class="exwrap">
+      <text wx:for="{{examples}}" wx:key="*this" class="ex" data-txt="{{item}}" bindtap="tapExample">{{item}}</text>
+    </view>
+    <button class="primary" bindtap="onParse" disabled="{{!input}}">解析这句话</button>
+  </view>
+
+  <!-- 解析错误 -->
+  <view wx:if="{{errMsg}}" class="card errcard">
+    <view class="err">{{errMsg}}</view>
+  </view>
+
+  <!-- ③ 复述确认 -->
+  <view wx:if="{{preview}}" class="card">
+    <view class="card-title">③ 复述确认（不对就取消）</view>
+    <block wx:if="{{preview.multi}}">
+      <view class="multilist">
+        <view wx:for="{{preview.sentences}}" wx:key="index" class="multiline">{{index + 1}}. {{item}}</view>
+      </view>
+      <view class="sentence">共 {{preview.count}} 笔，合计 ¥{{preview.total}}</view>
+    </block>
+    <view wx:else class="sentence">{{preview.sentence}}</view>
+    <view class="btnrow">
+      <button class="ghost" size="mini" bindtap="cancelPreview">取消</button>
+      <button class="primary" size="mini" bindtap="confirmSave" disabled="{{saving}}">确认记账</button>
+    </view>
+  </view>
+
+  <!-- ④ 今日/本月 日结月结 -->
+  <view class="card">
+    <view class="card-title">📊 今日 / 本月一览</view>
+    <view class="statgrid">
+      <view class="statcol">
+        <view class="stathead">今日</view>
+        <view class="statrow"><text class="statlabel">营业额</text><text class="statval">¥{{todayStats.turnover}}</text></view>
+        <view class="statrow"><text class="statlabel">现金收入</text><text class="statval">¥{{todayStats.cashIn}}</text></view>
+        <view class="statrow"><text class="statlabel">现金支出</text><text class="statval">¥{{todayStats.cashOut}}</text></view>
+        <view class="statrow"><text class="statlabel">净现金</text><text class="statval">¥{{todayStats.netCash}}</text></view>
+        <view class="statrow"><text class="statlabel">参考毛利</text><text class="statval">¥{{todayStats.profit}}</text></view>
+      </view>
+      <view class="statcol">
+        <view class="stathead">本月</view>
+        <view class="statrow"><text class="statlabel">营业额</text><text class="statval">¥{{monthStats.turnover}}</text></view>
+        <view class="statrow"><text class="statlabel">现金收入</text><text class="statval">¥{{monthStats.cashIn}}</text></view>
+        <view class="statrow"><text class="statlabel">现金支出</text><text class="statval">¥{{monthStats.cashOut}}</text></view>
+        <view class="statrow"><text class="statlabel">净现金</text><text class="statval">¥{{monthStats.netCash}}</text></view>
+        <view class="statrow"><text class="statlabel">参考毛利</text><text class="statval">¥{{monthStats.profit}}</text></view>
+      </view>
+    </view>
+    <view class="statrow statreceivable"><text class="statlabel">累计未收（赊账 − 收款）</text><text class="statval statwarn">¥{{receivable}}</text></view>
+    <view class="statnote">营业额＝卖货+赊账；净现金＝现金收入−现金支出；参考毛利按"最近一次同品名进价"估算。{{profitNote}}</view>
+  </view>
+
+  <!-- ⑤ 今日流水 -->
+  <view class="card">
+    <view class="card-title">⑤ 今日流水（{{today}}）</view>
+    <view wx:if="{{sum.count > 0}}" class="sumrow">
+      共 {{sum.count}} 笔 ｜ 卖出 ¥{{sum.sell}} ｜ 进货 ¥{{sum.buy}} ｜ 赊账未收 ¥{{sum.credit}} ｜ 已收 ¥{{sum.collect}} ｜ 支出 ¥{{sum.expense}} ｜ 损耗 ¥{{sum.loss}}
+    </view>
+    <view wx:if="{{!list.length}}" class="empty">
+      <view>今天还没记账。</view>
+      <view class="empty-sub">按住上面按钮说一句，或点示例试试。</view>
+    </view>
+    <view wx:for="{{list}}" wx:key="_id" class="row">
+      <view class="row-main">
+        <view class="row-top">
+          <text class="tag tag-{{item.type}}">{{item.typeLabel}}</text>
+          <text class="row-desc">{{item.desc}}</text>
+        </view>
+        <view class="row-time">{{item.time}}</view>
+      </view>
+      <view class="row-amt amt-{{item.type}}">¥{{item.total}}</view>
+      <view class="row-del" data-id="{{item._id}}" catchtap="onDelete">✕</view>
+    </view>
+    <button wx:if="{{mode === 'demo' && list.length}}" class="ghost clear" size="mini" bindtap="clearDemo">清空本地演示数据</button>
+  </view>
+
+  <view class="foot">Plan B · 自带录音 + 云函数语音识别 · 金额由确定性引擎计算</view>
+</view>

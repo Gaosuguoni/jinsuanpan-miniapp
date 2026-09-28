@@ -1,0 +1,71 @@
+.page { padding: 12px 12px 40px; }
+.modebar { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.chip { font-size: 12px; padding: 3px 10px; border-radius: 20px; background: #e8ecea; color: #5b6b63; }
+.chip.cloud { background: #dff0e7; color: #1f6f43; }
+.modetip { font-size: 11px; color: #8a958f; flex-basis: 100%; }
+.errbar { background: #fdecea; border: 1px solid #f5c6c0; color: #b23a2e; border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; font-size: 13px; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.errbar-text { flex: 1; }
+.card { background: #fff; border-radius: 12px; padding: 14px; margin-bottom: 12px; box-shadow: 0 1px 4px rgba(0,0,0,.04); }
+.card-title { font-weight: 600; color: #1f6f43; margin-bottom: 10px; }
+.input { width: 100%; min-height: 52px; background: #f7f9f8; border-radius: 8px; padding: 8px; box-sizing: border-box; font-size: 15px; }
+.exwrap { display: flex; flex-wrap: wrap; gap: 6px; margin: 10px 0 12px; }
+.ex { font-size: 12px; color: #1f6f43; background: #eef7f1; border: 1px dashed #bcd9c7; border-radius: 14px; padding: 3px 9px; }
+.err { color: #b23a2e; font-size: 13px; white-space: pre-line; }
+.sentence { background: #fffbe8; border: 1px solid #f0e2a8; border-radius: 8px; padding: 10px 12px; font-size: 16px; color: #6b5d1a; margin-bottom: 12px; }
+.btnrow { display: flex; justify-content: flex-end; gap: 10px; }
+.primary { background: #1f6f43; color: #fff; border-radius: 8px; font-size: 15px; }
+.primary[disabled] { background: #a8c9b6 !important; color: #eef4f0 !important; }
+.ghost { background: #fff; color: #5b6b63; border: 1px solid #d5ddd8; border-radius: 8px; }
+.sumrow { background: #eef7f1; border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #1f6f43; margin-bottom: 10px; line-height: 1.6; }
+.empty { color: #9aa49e; text-align: center; padding: 18px 0; font-size: 14px; }
+.empty-sub { font-size: 12px; margin-top: 4px; }
+.row { display: flex; align-items: center; padding: 10px 0; border-bottom: 1px solid #f0f3f1; }
+.row:last-child { border-bottom: none; }
+.row-main { flex: 1; min-width: 0; }
+.row-top { display: flex; align-items: center; gap: 6px; }
+.tag { font-size: 11px; padding: 1px 6px; border-radius: 4px; color: #fff; background: #8a958f; }
+.tag-buy { background: #d97706; }
+.tag-sell { background: #1f6f43; }
+.tag-credit { background: #b45309; }
+.tag-collect { background: #15803d; }
+.tag-expense { background: #b23a2e; }
+.tag-loss { background: #7f8c8d; }
+.row-desc { font-size: 14px; color: #232b27; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row-time { font-size: 11px; color: #9aa49e; margin-top: 2px; }
+.row-amt { font-size: 16px; font-weight: 600; margin: 0 10px; }
+.amt-buy, .amt-expense, .amt-loss { color: #c0392b; }
+.amt-sell, .amt-collect { color: #1f6f43; }
+.amt-credit { color: #b45309; }
+.row-del { color: #c9d1cc; padding: 4px 2px 4px 6px; font-size: 14px; }
+.clear { margin-top: 10px; }
+.foot { text-align: center; color: #b6beb9; font-size: 11px; margin-top: 6px; }
+/* ===== P1 语音入口 ===== */
+.vbanner { background: #fff8e6; border: 1px solid #f0dfa8; border-radius: 8px; padding: 8px 10px; margin-bottom: 10px; }
+.vbanner-title { font-size: 13px; color: #8a6d1a; font-weight: 600; margin-bottom: 4px; }
+.vbanner-line { font-size: 12px; color: #9a7f2a; line-height: 1.7; }
+.vbanner-reason { font-size: 11px; color: #b0b8b3; margin-top: 4px; }
+.voicebtn { margin: 8px auto 4px; width: 200px; height: 200px; border-radius: 50%; background: #1f6f43; color: #fff; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 6px 16px rgba(31,111,67,.25); }
+.voicebtn.recording { background: #c0392b; box-shadow: 0 0 0 12px rgba(192,57,43,.15); }
+.voicebtn.disabled { background: #c8d3cd; color: #eef2f0; box-shadow: none; }
+.voicebtn-main { font-size: 22px; font-weight: 600; }
+.voicebtn-sub { font-size: 12px; opacity: .85; margin-top: 8px; padding: 0 22px; text-align: center; line-height: 1.5; }
+.partial { background: #f7f9f8; border-radius: 8px; padding: 8px 10px; font-size: 13px; color: #5b6b63; margin-top: 8px; }
+.ttsrow { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; }
+.ttstext { font-size: 13px; color: #5b6b63; }
+.mini-btn { font-size: 12px; background: #eef7f1; color: #1f6f43; border: 1px solid #bcd9c7; border-radius: 14px; line-height: 1.8; padding: 0 10px; }
+
+.voicebtn.busy { background: #b45309; box-shadow: 0 0 0 12px rgba(180,83,9,.12); }
+
+/* ===== P2 日结/月结 ===== */
+.statgrid { display: flex; gap: 10px; }
+.statcol { flex: 1; background: #f7f9f8; border-radius: 8px; padding: 8px 10px; }
+.stathead { font-size: 13px; font-weight: 600; color: #1f6f43; margin-bottom: 6px; }
+.statrow { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; }
+.statlabel { font-size: 12px; color: #6b7671; }
+.statval { font-size: 14px; font-weight: 600; color: #232b27; }
+.statreceivable { margin-top: 10px; border-top: 1px solid #eef2f0; padding-top: 8px; }
+.statwarn { color: #b45309; }
+.statnote { font-size: 11px; color: #9aa49e; line-height: 1.6; margin-top: 6px; }
+/* ===== P2 多笔确认 ===== */
+.multilist { background: #f7f9f8; border-radius: 8px; padding: 8px 10px; margin-bottom: 8px; }
+.multiline { font-size: 13px; color: #232b27; line-height: 1.7; }
